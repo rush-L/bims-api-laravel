@@ -11,7 +11,25 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
+        //        
+        Schema::create('residents', function (Blueprint $table) {
+            $table->id();
+            $table->string('last_name');
+            $table->string('first_name');
+            $table->string('middle_name');
+            $table->string('address');
+            $table->date('birth_date');
+            $table->string('birth_place');
+            $table->string('gender');
+            $table->string('civil_status');
+            $table->string('contact_number');
+            $table->string('guardian_name');
+            $table->string('guardian_contact_number');
+            $table->string('religion');
+            $table->string('occupation');
+            $table->bigInteger('issuing_officer_id')->unsigned();
+            $table->foreign('issuing_officer_id')->references('id')->on('users');
+        });
     }
 
     /**
