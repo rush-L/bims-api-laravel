@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\IndigencyController;
 use App\Http\Controllers\OcrController;
+use App\Http\Controllers\ResidentsController;
+use App\Http\Controllers\UsersController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,5 +23,8 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 });
 
 Route::resource('indigencies', IndigencyController::class);
+Route::resource('residents', ResidentsController::class);
 
 Route::post('ocr', [OcrController::class, 'index']);
+
+Route::get('users', [UsersController::class, 'index']);
