@@ -21,6 +21,7 @@ class RegisteredUserController extends Controller
     public function store(Request $request): Response
     {
         $request->validate([
+            'username' => ['required', 'string', 'max:255'],
             'first_name' => ['required', 'string', 'max:255'],
             'middle_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
@@ -32,6 +33,7 @@ class RegisteredUserController extends Controller
         $full_name = implode(' ', [trim($request->first_name), trim($request->middle_name), trim($request->last_name)]);
 
         $user = User::create([
+            'username' => $request->username,
             'full_name' => $full_name,
             'first_name' => $request->first_name,
             'middle_name' => $request->middle_name,
@@ -43,7 +45,7 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
-        Auth::login($user);
+        // Auth::login($user);
 
         return response()->noContent();
     }
