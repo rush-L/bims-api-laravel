@@ -13,8 +13,10 @@ class ResidentsController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): JsonResponse
     {
+        $residents = Residents::all();
+        return response()->json($residents);
         //
     }
 

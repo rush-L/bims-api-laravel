@@ -2,21 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Models\Clearance;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
-class IndigencyController extends Controller
+class ClearanceController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index(): JsonResponse
     {
-        $users = User::paginate(5);
-        return response()->json(['users' => $users]);
-        //
+        $clearance = Clearance::paginate(5);
+        return response()->json(['users' => $clearance]);
     }
 
     /**
@@ -32,7 +30,25 @@ class IndigencyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'resident_id' => ['required', 'string', 'max:255'],
+            'purpose' => ['required', 'string', 'max:255'],
+            'valid_until' => ['required'],
+            'remarks' => ['required'],
+            'issuing_officer_id' => ['required'],
+
+        ]);
+
+        Clearance::create([
+            'resident_id' => $request->resident_id,
+            'purpose' => $request->purpose,
+            'valid_until' => $request->valid_until,
+            'remarks' => $request->remarks,
+            'issuing_officer_id' => $request->issuing_officeer_id,
+
+        ]);
+        // dd($request);
+        return response()->noContent();
     }
 
     /**
